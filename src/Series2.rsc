@@ -3,6 +3,8 @@ module Series2
 import ParseTree;
 import IO;
 
+extend lang::std::Layout;
+
 /*
  * Syntax definition
  * - define a grammar for JSON (https://json.org/)
@@ -12,7 +14,12 @@ start syntax JSON
   = Object;
   
 syntax Object
-  = ;
+  = "{" {Element ","}+ "}"
+  | "{" "}"
+  ;
+  
+syntax Element
+  = ; // Fill in  
   
 syntax Value
   = String
@@ -24,22 +31,24 @@ syntax Value
   ;
 
 syntax Null
-  = ;
+  = "null";
   
 syntax Boolean
-  = ;  
+  = // Fill in
+  | // Fill in
+  ;  
   
 syntax Array
-  = ;  
+  = "[" "]"
+  | "[" {Value ","}+ "]"
+  ;  
   
 lexical String
   = [\"] ![\"]* [\"]; // slightly simplified
   
 lexical Number
-  = ;  
+  = ; // Fill in. Hint; think of the pattern for numbers in regular expressions. How do you accept a number in a regex?  
   
-  
-
 // import the module in the console
 start[JSON] example() 
   = parse(#start[JSON], 
@@ -54,7 +63,7 @@ start[JSON] example()
   
 
 
-// use visit/deep match to find all property names
+// use visit/deep match to find all element names
 // - use concrete pattern matching
 // - use "<x>" to convert a String x to str
 set[str] propNames(start[JSON] json) {
