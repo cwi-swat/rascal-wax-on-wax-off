@@ -2,6 +2,11 @@ module Series1
 
 
 /*
+ * Documentation: http://docs.rascal-mpl.org 
+ *  or button with wasp with hat)
+ */
+
+/*
  * Hello world
  *
  * - Import IO, write a function that prints out Hello World!
