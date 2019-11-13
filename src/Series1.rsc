@@ -15,7 +15,6 @@ module Series1
  */
  
 void helloWorld() {
-
 } 
 
 
@@ -118,7 +117,7 @@ ColoredTree exampleTree()
 // write a recursive function summing the leaves
 // (use switch or pattern-based dispatch)
 
-int sumLeaves(ColoredTree t);
+int sumLeaves(ColoredTree t) = 0; // TODO: Change this!
 
 // same, but now with visit
 int sumLeavesWithVisit(ColoredTree t) {
@@ -132,7 +131,7 @@ int sumLeavesWithFor(ColoredTree t) {
 
 // same, but now with a reducer and deep match
 // Reducer = ( <initial value> | <some expression with `it` | <generators> )
-int sumLeavesWithReducer(ColoredTree t);
+int sumLeavesWithReducer(ColoredTree t) = 0; // TODO: Change this!
 
 
 // add 1 to all leaves; use visit + =>
@@ -148,7 +147,6 @@ test bool testInc1() = false;
 // (without using inc1)
 // Use switch on the tupling of t1 and t2 (`<t1, t2>`)
 // or pattern based dispatch.
-
 bool isInc1(ColoredTree t1, ColoredTree t2) {
 
 }
