@@ -144,9 +144,10 @@ test bool testInc1() = false;
 
 // define a property for inc1, i.e. a boolean
 // function that checks if one tree is inc1 of the other
-// (without using inc1)
+// (without using inc1).
 // Use switch on the tupling of t1 and t2 (`<t1, t2>`)
 // or pattern based dispatch.
+// Hint! The tree also needs to have the same shape!
 bool isInc1(ColoredTree t1, ColoredTree t2) {
 
 }
