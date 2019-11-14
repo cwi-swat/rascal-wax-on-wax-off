@@ -2,8 +2,7 @@ module Series2
 
 import ParseTree;
 import IO;
-
-extend lang::std::Layout;
+import String;
 
 /*
  * Syntax definition
@@ -14,8 +13,7 @@ start syntax JSON
   = Object;
   
 syntax Object
-  = "{" {Element ","}+ "}"
-  | "{" "}"
+  = "{" {Element ","}* "}"
   ;
   
 syntax Element
@@ -39,8 +37,7 @@ syntax Boolean
   ;  
   
 syntax Array
-  = "[" "]"
-  | "[" {Value ","}+ "]"
+  = "[" {Value ","}* "]"
   ;  
   
 lexical String
@@ -48,6 +45,8 @@ lexical String
   
 lexical Number
   = ; // Fill in. Hint; think of the pattern for numbers in regular expressions. How do you accept a number in a regex?  
+
+layout Whitespace = [\ \t\n]* !>> [\ \t\n];  
   
 // import the module in the console
 start[JSON] example() 
@@ -70,19 +69,22 @@ set[str] propNames(start[JSON] json) {
 
 }
 
-
 // define a recursive transformation mapping JSON to map[str,value] 
-// - use the module ValueIO to parse strings into Rascal values
+// - every Value constructor alternative needs a 'transformation' function
 // - define a data type for representing null;
 
 map[str, value] json2map(start[JSON] json) = json2map(json.top);
 
-map[str, value] json2map((JSON)`<Object obj>`)  = m
-  when map[str, value] m := json2value((Value)`<Object obj>`);
+map[str, value] json2map((JSON)`<Object obj>`)  = json2map(obj);
+map[str, value] json2map((Object)`{<{Element ","}* elems>}`) = ( /* Create the map using a comprehension */);
 
-value json2value(Value v) {
+str unquote(str s) = s[1..-1];
 
-}
+value json2value((Value)`<String s>`)    = unquote("<s>"); // This is an example how to transform the String literal to a value
+value json2value((Value)`<Number n>`)    = -1; // ... This needs to change. The String module contains a function to convert a str to int
+// The other alternatives are missing. You need to add them.
+
+default value json2value(Value v) { throw "No tranformation function for `<v>` defined"; }
 
 test bool example2map() = json2map(example()) == (
   "age": 42,
