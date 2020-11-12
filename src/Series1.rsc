@@ -36,10 +36,41 @@ void fizzBuzz() {
   }
 }
 
-list[str] fizzBuzz() {
+list[str] fizzBuzzLst() {
+  str msg(int i) {
+    if (i % 15 == 0) {
+      return "FizzBuzz";
+    }
+    if (i % 3 == 0) {
+      return "Fizz";
+    }
+    if (i % 5 == 0) {
+      return "Buzz";
+    }
+    return "<i>";
+  }
 
-
+   return [ msg(i) | int i <- [0..100] ]; 
 }
+
+
+// https://twitter.com/KevlinHenney/status/1324671179047784450
+
+list[str] kevlinHenney() {
+  str fizzBuzz(int n) {
+    return (
+      <false, false> : str(int n) { return "<n>"; },
+      <true, false>: str(int _) { return "Fizz"; },
+      <false, true>: str(int _) { return "Buzz"; },
+      <true, true>: str(int _) { return "FizzBuzz"; }
+    )[<n % 3 == 0, n % 5 == 0>](n); 
+  }
+  
+  return [ fizzBuzz(i) | int i <- [0..100] ];
+}
+
+test bool testFizzBuzz()
+  = kevlinHenney() == fizzBuzzLst();
 
 /*
  * Factorial
