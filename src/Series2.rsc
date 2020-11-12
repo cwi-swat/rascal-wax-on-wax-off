@@ -2,6 +2,10 @@ module Series2
 
 import ParseTree;
 import IO;
+import ValueIO;
+
+// I'm lazy, I reuse Layout and Id (identifier) syntax.
+extend lang::std::Layout;
 
 /*
  * Syntax definition
@@ -12,7 +16,11 @@ start syntax JSON
   = Object;
   
 syntax Object
-  = ;
+  = "{" {Prop ","}* "}";
+  
+syntax Prop
+  = String ":" Value
+  ;
   
 syntax Value
   = String
@@ -24,19 +32,21 @@ syntax Value
   ;
 
 syntax Null
-  = ;
+  = "null";
   
 syntax Boolean
-  = ;  
+  = "true" | "false"; 
   
 syntax Array
-  = ;  
+  = "[" {Value ","}* "]";
   
 lexical String
   = [\"] ![\"]* [\"]; // slightly simplified
   
 lexical Number
-  = ;  
+  = [1-9][0-9]* ("." [0-9]*)?
+  | [0] ("." [0-9]*)?  
+  ;
   
   
 
@@ -58,7 +68,14 @@ start[JSON] example()
 // - use concrete pattern matching
 // - use "<x>" to convert a String x to str
 set[str] propNames(start[JSON] json) {
-
+  set[str] names = {};
+  
+  visit (json) {
+    case (Prop)`<String x>: <Value _>`:
+      names += "<x>"[1..-1];
+  }
+  
+  return names;
 }
 
 
@@ -68,11 +85,29 @@ set[str] propNames(start[JSON] json) {
 
 map[str, value] json2map(start[JSON] json) = json2map(json.top);
 
+data Null = null();
+
 map[str, value] json2map((JSON)`<Object obj>`)  = m
   when map[str, value] m := json2value((Value)`<Object obj>`);
 
 value json2value(Value v) {
-
+  switch (v) {
+    case (Value)`null`: 
+      return null();
+    case (Value)`<String s>`: 
+      return readTextValueString(#str, "<s>");
+    case (Value)`<Number n>`:
+      return readTextValueString(#num, "<n>");
+    case (Value)`<Boolean b>`:
+      return readTextValueString(#bool, "<b>");
+    case (Value)`[<{Value ","}* xs>]`:
+      return [ json2value(x) | Value x <- xs ];
+    case (Value)`{<{Prop ","}* xs>}`:
+      return ( readTextValueString(#str, "<s>"): json2value(x) 
+                | (Prop)`<String s>: <Value x>` <- xs );
+    default:
+      throw "Bad value: <v>";
+  }
 }
 
 test bool example2map() = json2map(example()) == (
