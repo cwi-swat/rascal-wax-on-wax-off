@@ -40,12 +40,13 @@ list[str] fizzBuzz() {
  */
  
 
-int factorial(int n) {
-
-}
 
 int fact(0) = 1;
 int fact(1) = 1;
+
+default int factorial(int n) {
+
+}
 
 
 
