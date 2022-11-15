@@ -95,11 +95,3 @@ test bool example2map() = json2map(example()) == (
   )
 );
 
- 
-  
-/*
- * Optionally: do this tutorial to get more familiarized with concrete syntax
- * by extending Javascript with new language features:
- *   https://github.com/cwi-swat/hack-your-javascript
- */  
-  
