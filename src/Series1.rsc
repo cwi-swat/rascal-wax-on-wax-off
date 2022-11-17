@@ -2,8 +2,7 @@ module Series1
 
 
 /*
- * Documentation: http://docs.rascal-mpl.org 
- *  or button with wasp with hat)
+ * Documentation: https://www.rascal-mpl.org/docs/GettingStarted/
  */
 
 /*
