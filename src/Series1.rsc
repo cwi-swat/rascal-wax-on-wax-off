@@ -28,7 +28,7 @@ void fizzBuzz() {
 }
 
 list[str] fizzBuzz() {
-
+  return []; // replace
 }
 
 /*
@@ -44,7 +44,7 @@ int fact(0) = 1;
 int fact(1) = 1;
 
 default int factorial(int n) {
-
+  return -1; // <- replace
 }
 
 
@@ -121,12 +121,12 @@ int sumLeaves(ColoredTree t) = 0; // TODO: Change this!
 
 // same, but now with visit
 int sumLeavesWithVisit(ColoredTree t) {
-
+  return -1; // <- replace
 }
 
 // same, but now with a for loop and deep match
 int sumLeavesWithFor(ColoredTree t) {
-
+  return -1; // <- replace 
 }
 
 // same, but now with a reducer and deep match
@@ -136,7 +136,7 @@ int sumLeavesWithReducer(ColoredTree t) = 0; // TODO: Change this!
 
 // add 1 to all leaves; use visit + =>
 ColoredTree inc1(ColoredTree t) {
-  
+  return leaf(-1); // <- replace 
 }
 
 // write a test for inc1, run from console using :test
@@ -149,7 +149,7 @@ test bool testInc1() = false;
 // or pattern based dispatch.
 // Hint! The tree also needs to have the same shape!
 bool isInc1(ColoredTree t1, ColoredTree t2) {
-
+  return false; // <- replace
 }
  
 // write a randomized test for inc1 using the property
