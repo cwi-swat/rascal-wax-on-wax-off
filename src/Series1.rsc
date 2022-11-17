@@ -66,7 +66,7 @@ void comprehensions() {
 
   // construct a list of factorials from 0 to 9
   
-  // same, but no only for even numbers  
+  // same, but now only for even numbers  
 }
  
 
