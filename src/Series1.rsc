@@ -9,7 +9,7 @@ module Series1
  * Hello world
  *
  * - Import IO, write a function that prints out Hello World!
- * - open the console (right-click in the editor, "Start console"
+ * - open the console (click "Import in new Rascal Terminal")
  * - import this module and invoke helloWorld.
  */
  
